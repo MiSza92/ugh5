@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 interface LoginModalProps {
   open: boolean;

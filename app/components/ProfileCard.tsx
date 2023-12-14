@@ -57,12 +57,16 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 
   return (
     <div className="flex items-center justify-center bg-blue-200 ">
-      <div className=" w-1/3 mt-10 rounded-lg bg-white">
+      <div className=" w-2/3 mt-10 rounded-lg bg-white">
         <div className="flex items-center pl-2 pt-10 flex-row ">
           <img src={image} alt="avatar" className="rounded-full " />
           <div className="flex flex-col items-center">
-            <h1 className="text-gray-800 font-semibold text-xl mt-5">{name}</h1>
-            <h2 className="text-gray-500 text-sm ">{serverData?._id}</h2>
+            <h1 className="text-gray-800 font-semibold text-xl mt-5">
+              Username: {name}
+            </h1>
+            <h2 className="text-gray-500 text-sm ">
+              UserID: {serverData?._id}
+            </h2>
             <p className="text-gray-500 text-sm p-4 text-center">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
               facere et tenetur id laboriosam iusto. At asperiores laudantium
