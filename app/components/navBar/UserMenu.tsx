@@ -1,23 +1,51 @@
 "use client";
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import MenuItem from "./MenuItem";
 import LoginModal from "../modals/LoginModal";
 import RegisterModal from "../modals/RegisterModal";
+import User from "@/app/schemas/user";
+import ListModal from "../modals/ListModal";
+import { useSession } from "next-auth/react";
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [loginIsOpen, setLoginIsOpen] = useState<boolean>(false);
-  const [RegisterIsOpen, setRegisterIsOpen] = useState<boolean>(false);
+  const [registerIsOpen, setRegisterIsOpen] = useState<boolean>(false);
+  const [listIsOpen, setListIsOpen] = useState<boolean>(false);
 
   const toggleLogin = () => setLoginIsOpen(!loginIsOpen);
-  const toggleRegister = () => setRegisterIsOpen(!RegisterIsOpen);
+  const toggleRegister = () => setRegisterIsOpen(!registerIsOpen);
+  const toggleList = () => setListIsOpen(!listIsOpen);
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
+
+  const { data: session, status } = useSession();
+  const [image, setImage] = useState("");
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      const img = session?.user?.image;
+      setImage(img as string);
+    } else {
+      const img =
+        "https://res.cloudinary.com/dfoxcy8gx/image/upload/v1702563527/ugh5/avatar/awdj711nwvnx8c9yuduk.png";
+      setImage(img as string);
+    }
+  }, [image, session]);
+  const onRent = useCallback(() => {
+    if (!session?.user) {
+      toggleLogin();
+      console.log("kein user :>> ");
+    } else {
+      toggleList();
+    }
+  }, [session]);
+
   return (
-    <div className="relative">
+    <div className="relative ">
       <div
         className="
         flex
@@ -26,7 +54,7 @@ const UserMenu = () => {
     gap-3"
       >
         <div
-          onClick={() => {}}
+          onClick={onRent}
           className="
           text-sm 
           font-semibold 
@@ -38,6 +66,7 @@ const UserMenu = () => {
           cursor-pointer"
         >
           Offer your home
+          {listIsOpen && <ListModal open={listIsOpen} onClose={toggleList} />}
         </div>
         <div
           onClick={toggleOpen}
@@ -58,7 +87,7 @@ const UserMenu = () => {
         >
           <AiOutlineMenu />
           <div className="">
-            <Avatar />
+            <Avatar image={image} />
           </div>
         </div>
       </div>
@@ -83,10 +112,12 @@ const UserMenu = () => {
           >
             <>
               <MenuItem onClick={toggleLogin} label="Login" />
-              <LoginModal open={loginIsOpen} onClose={toggleLogin} />
+              {loginIsOpen && (
+                <LoginModal open={loginIsOpen} onClose={toggleLogin} />
+              )}
               <MenuItem onClick={toggleRegister} label="Register" />
-              {RegisterIsOpen && (
-                <RegisterModal open={RegisterIsOpen} onClose={toggleRegister} />
+              {registerIsOpen && (
+                <RegisterModal open={registerIsOpen} onClose={toggleRegister} />
               )}
             </>
           </div>

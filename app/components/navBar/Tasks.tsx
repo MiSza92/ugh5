@@ -8,7 +8,7 @@ import { GiFarmer } from "react-icons/gi";
 import { FaReact } from "react-icons/fa6";
 import { MdChildFriendly } from "react-icons/md";
 
-export const categories = [
+export const tasks = [
   {
     label: "Pet sitting",
     icon: MdOutlinePets,
@@ -36,7 +36,7 @@ export const categories = [
   },
 ];
 
-const Categories = () => {
+const Tasks = () => {
   return (
     <Container>
       <div
@@ -48,7 +48,7 @@ const Categories = () => {
   justify-between
   overflow-x-auto"
       >
-        {categories.map((item) => (
+        {tasks.map((item) => (
           <CategoryBox
             key={item.label}
             label={item.label}
@@ -61,4 +61,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default Tasks;

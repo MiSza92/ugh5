@@ -4,9 +4,13 @@ import User from "@/app/schemas/user";
 import Container from "../Container";
 import Logo from "./Logo";
 import UserMenu from "./UserMenu";
-import Categories from "./Categories";
+import Tasks from "./Tasks";
+import { useEffect } from "react";
+import { Session } from "next-auth";
+import { useSession } from "next-auth/react";
 
 const NavBar = () => {
+  // console.log("session :>> ", session);
   return (
     <div className=" w-full bg-blue-400 z-10 shadow-sm">
       <div className="py-2 border-b-[1px]">
@@ -24,7 +28,7 @@ const NavBar = () => {
           </div>
         </Container>
       </div>
-      <Categories />
+      <Tasks />
     </div>
   );
 };
