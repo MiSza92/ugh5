@@ -104,7 +104,10 @@ const ListModal: React.FC<ListModalProps> = ({ open, onClose }) => {
   //   maxGuests: number;
   if (step === STEPS.INFO) {
     bodyContent = (
-      <div>
+      <div className="your-modal-class" id="container">
+        {/* Modal content */}
+        {/* </div>
+      <div> */}
         <h1>Give a short description of your listing</h1>
         <input
           onChange={(e) => setTitle(e.target.value)}
