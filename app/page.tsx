@@ -5,7 +5,7 @@ import LoginModal from "./components/modals/LoginModal";
 
 export default function Home() {
   const [loginIsOpen, setLoginIsOpen] = useState<boolean>(false);
-  const [RegisterIsOpen, setRegisterIsOpen] = useState<boolean>(true);
+  const [RegisterIsOpen, setRegisterIsOpen] = useState<boolean>(false);
 
   const toggleLogin = () => setLoginIsOpen(!loginIsOpen);
   const toggleRegister = () => setRegisterIsOpen(!RegisterIsOpen);

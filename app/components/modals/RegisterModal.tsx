@@ -50,7 +50,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
   return (
     <Modal
       title="Register"
-      open={open}
+      isOpen={open}
       onClose={onClose}
       actionLabel="Register now"
       action={handleSubmit}

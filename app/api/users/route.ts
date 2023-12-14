@@ -38,44 +38,44 @@ export async function GET(request) {
   }
 }
 
-// export async function POST(request: Request) {
-//   const formData = await request.formData();
+export async function POST(request: Request) {
+  const formData = await request.formData();
 
-//   const name = formData.get("name");
-//   const email = formData.get("email");
-//   const password = formData.get("password");
-//   const image = formData.get("image");
+  const name = formData.get("name");
+  const email = formData.get("email");
+  const password = formData.get("password");
+  const image = formData.get("image");
 
-//   try {
-//     await connectMongo();
+  try {
+    await connectMongo();
 
-//     if (await User.findOne({ name: name })) {
-//       if (name) {
-//         return NextResponse.json(
-//           { message: `Username already exists.` },
-//           { status: 501 }
-//         );
-//       }
-//     } else if (await User.findOne({ email: email })) {
-//       if (email) {
-//         return NextResponse.json(
-//           { message: `Email already exists.` },
-//           { status: 501 }
-//         );
-//       }
-//     }
+    if (await User.findOne({ name: name })) {
+      if (name) {
+        return NextResponse.json(
+          { message: `Username already exists.` },
+          { status: 501 }
+        );
+      }
+    } else if (await User.findOne({ email: email })) {
+      if (email) {
+        return NextResponse.json(
+          { message: `Email already exists.` },
+          { status: 501 }
+        );
+      }
+    }
 
-//     await User.create({ name, email, password, image });
+    await User.create({ name, email, password, image });
 
-//     return NextResponse.json({
-//       message: `User ${name} was created.`,
-//       //  message: `User  was created.`,
-//     });
-//   } catch (error) {
-//     console.error("Error processing image upload:", error);
-//     return NextResponse.json({ message: "Internal server error." });
-//   }
-// }
+    return NextResponse.json({
+      message: `User ${name} was created.`,
+      //  message: `User  was created.`,
+    });
+  } catch (error) {
+    console.error("Error processing image upload:", error);
+    return NextResponse.json({ message: "Internal server error." });
+  }
+}
 
 // export async function POST(request: Request) {
 //   const formData = await request.formData();

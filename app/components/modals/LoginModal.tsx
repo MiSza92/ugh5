@@ -14,6 +14,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
+  console.log("LoginModal open:", open);
+
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
@@ -37,7 +39,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
   return (
     <Modal
       title="Login"
-      open={open}
+      isOpen={open}
       onClose={onClose}
       actionLabel="Login now"
       action={handleSubmit}

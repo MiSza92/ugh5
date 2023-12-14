@@ -12,7 +12,7 @@ export default function Profile() {
     if (!data) {
       router.push("/");
     }
-  }, [data]);
+  }, [data, router]);
   return (
     data && (
       <div>
