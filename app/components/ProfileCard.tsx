@@ -22,29 +22,12 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 }) => {
   const [serverData, setServerData] = useState<User | null>(null);
   const getServerData = async () => {
-    // try {
-    //   const res = await fetch(`api/users?email=${email}`, {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-
-    //   if (res.ok) {
-    //     // Verarbeiten der Antwort und Aktualisieren des State
-    //     const data = await res.json();
-    //     console.log("Received data:", data);
-    //     setServerData(data);
-    //   }
     try {
       const res = await fetch(`api/users?email=${encodeURIComponent(email)}`, {
         method: "GET",
       });
 
       if (res.ok) {
-        // Verarbeiten der Antwort und Aktualisieren des State
-        // const data = await res.json();
-        // console.log("Received data:", data);
         const { user } = await res.json();
         console.log("Received data:", user);
         setServerData(user);
@@ -94,7 +77,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         </div>
         <div className="flex items-center justify-center mt-3 mb-6">
           <p className="text-xs text-gray-500">Get Connected</p>
-          FBICON
+          FB ICON
         </div>
       </div>
     </div>

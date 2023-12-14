@@ -1,8 +1,10 @@
 "use client";
 
+import User from "@/app/schemas/user";
 import Container from "../Container";
 import Logo from "./Logo";
 import UserMenu from "./UserMenu";
+import Categories from "./Categories";
 
 const NavBar = () => {
   return (
@@ -22,6 +24,7 @@ const NavBar = () => {
           </div>
         </Container>
       </div>
+      <Categories />
     </div>
   );
 };

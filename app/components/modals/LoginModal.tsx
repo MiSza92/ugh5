@@ -14,8 +14,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
-  console.log("LoginModal open:", open);
-
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
@@ -35,7 +33,22 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
       console.log("something went wrong with login :>> ", error);
     }
   };
-
+  const bodyContent = (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2  rounded-lg ">
+      <input
+        onChange={(e) => setEmail(e.target.value)}
+        type="text"
+        placeholder="Email"
+        className="bg-zinc-100 rounded-lg  "
+      />{" "}
+      <input
+        onChange={(e) => setPassword(e.target.value)}
+        type="password"
+        placeholder="Password"
+        className="bg-zinc-100 rounded-lg"
+      />
+    </form>
+  );
   return (
     <Modal
       title="Login"
@@ -44,25 +57,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
       actionLabel="Login now"
       action={handleSubmit}
       error={error}
-    >
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-2  rounded-lg "
-      >
-        <input
-          onChange={(e) => setEmail(e.target.value)}
-          type="text"
-          placeholder="Email"
-          className="bg-zinc-100 rounded-lg  "
-        />{" "}
-        <input
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          placeholder="Password"
-          className="bg-zinc-100 rounded-lg"
-        />
-      </form>
-    </Modal>
+      body={bodyContent}
+    ></Modal>
   );
 };
 

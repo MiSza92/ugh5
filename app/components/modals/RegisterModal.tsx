@@ -47,6 +47,41 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
     }
   };
 
+  const bodyContent = (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit();
+      }}
+      className="flex flex-col gap-2 rounded-lg"
+    >
+      <input
+        onChange={(e) => setName(e.target.value)}
+        type="text"
+        placeholder="Username"
+        className="bg-zinc-100 rounded-lg"
+      />
+      <input
+        onChange={(e) => setEmail(e.target.value)}
+        type="text"
+        placeholder="Email"
+        className="bg-zinc-100 rounded-lg"
+      />
+      <input
+        onChange={(e) => setPassword(e.target.value)}
+        type="password"
+        placeholder="Password"
+        className="bg-zinc-100 rounded-lg"
+      />
+      <ImageUploadWidget
+        value={image}
+        onChange={async (url) => {
+          await setImage(url);
+        }}
+      />
+    </form>
+  );
+
   return (
     <Modal
       title="Register"
@@ -55,40 +90,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
       actionLabel="Register now"
       action={handleSubmit}
       error={error}
-    >
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit();
-        }}
-        className="flex flex-col gap-2 rounded-lg"
-      >
-        <input
-          onChange={(e) => setName(e.target.value)}
-          type="text"
-          placeholder="Username"
-          className="bg-zinc-100 rounded-lg"
-        />
-        <input
-          onChange={(e) => setEmail(e.target.value)}
-          type="text"
-          placeholder="Email"
-          className="bg-zinc-100 rounded-lg"
-        />
-        <input
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          placeholder="Password"
-          className="bg-zinc-100 rounded-lg"
-        />
-        <ImageUploadWidget
-          value={image}
-          onChange={async (url) => {
-            await setImage(url);
-          }}
-        />
-      </form>
-    </Modal>
+      body={bodyContent}
+    />
   );
 };
 

@@ -4,7 +4,8 @@ interface ModalProps {
   title: string;
   error: string;
   isOpen: boolean;
-  children: React.ReactNode;
+
+  body: React.ReactNode;
   actionLabel: string;
   action: () => void;
   onSubmit: () => void;
@@ -18,12 +19,12 @@ const Modal: React.FC<ModalProps> = ({
   onSubmit,
   actionLabel,
   action,
-  children,
+
+  body,
   error,
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   useEffect(() => {
-    console.log("isOpen :>> ", isOpen);
     setShowModal(isOpen);
   }, [isOpen]);
 
@@ -74,7 +75,8 @@ const Modal: React.FC<ModalProps> = ({
               </button>{" "}
             </div>
             <div className="flex flex-col px-2 pt-2 text-black">
-              {children}
+              {/* {children} */}
+              {body}
               <button
                 type="submit"
                 className="rounded bg-blue-500 text-white mt-2"

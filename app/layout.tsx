@@ -5,6 +5,7 @@ import "./globals.css";
 import { getServerSession } from "next-auth";
 import SessionProvider from "./config/AuthProvider";
 import NavBar from "./components/navBar/NavBar";
+import getCurrentUser from "./actions/GetCurrentUser";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,12 +20,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession();
+  const currentUser = await getCurrentUser();
   return (
     <html lang="en">
       {" "}
       <body className={inter.className}>
         <SessionProvider session={session}>
-          <NavBar />
+          <NavBar currentUser={currentUser} />
           {children}
         </SessionProvider>
       </body>

@@ -3,9 +3,16 @@ import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
 import { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
+import LoginModal from "../modals/LoginModal";
+import RegisterModal from "../modals/RegisterModal";
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [loginIsOpen, setLoginIsOpen] = useState<boolean>(false);
+  const [RegisterIsOpen, setRegisterIsOpen] = useState<boolean>(false);
+
+  const toggleLogin = () => setLoginIsOpen(!loginIsOpen);
+  const toggleRegister = () => setRegisterIsOpen(!RegisterIsOpen);
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
@@ -75,8 +82,12 @@ const UserMenu = () => {
             cursor-pointer"
           >
             <>
-              <MenuItem onClick={() => {}} label="Login" />
-              <MenuItem onClick={() => {}} label="Register" />
+              <MenuItem onClick={toggleLogin} label="Login" />
+              <LoginModal open={loginIsOpen} onClose={toggleLogin} />
+              <MenuItem onClick={toggleRegister} label="Register" />
+              {RegisterIsOpen && (
+                <RegisterModal open={RegisterIsOpen} onClose={toggleRegister} />
+              )}
             </>
           </div>
         </div>
