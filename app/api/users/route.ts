@@ -3,52 +3,79 @@ import User from "@/app/schemas/user";
 
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
-  const formData = await request.formData();
-
-  const name = formData.get("name");
-  const email = formData.get("email");
-  const password = formData.get("password");
-  const image = formData.get("image");
-  // const userimage = "hi";
-
-  // console.log("Name:", name);
-  // console.log("Email:", email);
-  // console.log("Password:", password);
-  // console.log("userImage:", image);
-
+export async function GET(request) {
   try {
     await connectMongo();
 
-    // if (await User.findOne({ name: name })) {
-    //   if (name) {
-    //     return NextResponse.json(
-    //       { message: `Username already exists.` },
-    //       { status: 501 }
-    //     );
-    //   }
-    // } else if (await User.findOne({ email: email })) {
-    //   if (email) {
-    //     return NextResponse.json(
-    //       { message: `Email already exists.` },
-    //       { status: 501 }
-    //     );
-    //   }
-    // }
+    const url = new URL(request.url);
+    const email = url.searchParams.get("email");
+    if (!email) {
+      return NextResponse.json(
+        { message: "Email parameter is missing." },
+        { status: 400 }
+      );
+    }
 
-    await User.create({ name, email, password, image });
-    //  await User.create({ image });
-    // Erfolgreiche Antwort senden
-    return NextResponse.json({
-      // message: `User ${name} was created.`,
-      message: `User  was created.`,
-    });
+    const user = await User.findOne({ email: email });
+
+    if (user) {
+      return NextResponse.json(
+        { message: `Found user with EMail ${email}.`, user },
+        { status: 200 }
+      );
+    } else {
+      return NextResponse.json(
+        { message: `Didn't find user with EMail ${email}.` },
+        { status: 404 }
+      );
+    }
   } catch (error) {
-    console.error("Error processing image upload:", error);
-    // Fehlerantwort senden
-    return NextResponse.json({ message: "Internal server error." });
+    console.error("Error processing GET request:", error);
+    return NextResponse.json(
+      { message: "Internal server error." },
+      { status: 500 }
+    );
   }
 }
+
+// export async function POST(request: Request) {
+//   const formData = await request.formData();
+
+//   const name = formData.get("name");
+//   const email = formData.get("email");
+//   const password = formData.get("password");
+//   const image = formData.get("image");
+
+//   try {
+//     await connectMongo();
+
+//     if (await User.findOne({ name: name })) {
+//       if (name) {
+//         return NextResponse.json(
+//           { message: `Username already exists.` },
+//           { status: 501 }
+//         );
+//       }
+//     } else if (await User.findOne({ email: email })) {
+//       if (email) {
+//         return NextResponse.json(
+//           { message: `Email already exists.` },
+//           { status: 501 }
+//         );
+//       }
+//     }
+
+//     await User.create({ name, email, password, image });
+
+//     return NextResponse.json({
+//       message: `User ${name} was created.`,
+//       //  message: `User  was created.`,
+//     });
+//   } catch (error) {
+//     console.error("Error processing image upload:", error);
+//     return NextResponse.json({ message: "Internal server error." });
+//   }
+// }
 
 // export async function POST(request: Request) {
 //   const formData = await request.formData();

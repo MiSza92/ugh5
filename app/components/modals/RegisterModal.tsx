@@ -16,6 +16,9 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
   const [error, setError] = useState("");
 
   const handleSubmit = async () => {
+    if (!name || !password || !email || !image) {
+      setError("all Fields must be applied");
+    }
     try {
       console.log("image :>> ", image);
       if (image !== "") {
@@ -32,7 +35,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
 
         if (res.ok) {
           alert("Registration successful");
-          onClose(); // Schließe das Modal nach erfolgreicher Registrierung
+          onClose();
         } else {
           console.log("Registration failed :>> ");
           const { message } = await res.json();

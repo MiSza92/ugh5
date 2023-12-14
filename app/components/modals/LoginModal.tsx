@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
@@ -10,9 +10,9 @@ interface LoginModalProps {
 }
 
 const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
-  const [password, setPassword] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [error, setError] = useState<string>("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
 
   const router = useRouter();
 
@@ -60,11 +60,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
           className="bg-zinc-100 rounded-lg"
         />
       </form>
-      {error && (
-        <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-lg mt-2">
-          {error}
-        </div>
-      )}
     </Modal>
   );
 };
