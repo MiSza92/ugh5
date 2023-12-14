@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Modal from "./Modal";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
-import { tasks } from "../navBar/Tasks";
+import Tasks, { tasks } from "../navBar/Tasks";
 import ListInput from "./ListInput";
 
 interface ListModalProps {
@@ -22,6 +22,8 @@ enum STEPS {
 const ListModal: React.FC<ListModalProps> = ({ open, onClose }) => {
   const [step, setStep] = useState<STEPS>(STEPS.TASK);
   const [error, setError] = useState("");
+  const [task, setTask] = useState<typeof tasks | null>(null);
+  const [location, setLocation] = useState();
 
   const onBack = () => {
     setStep((value) => value - 1);
@@ -42,21 +44,29 @@ const ListModal: React.FC<ListModalProps> = ({ open, onClose }) => {
     return "back";
   }, [step]);
   () => {};
-  const router = useRouter();
-  const handleAction = () => {};
+
+  const handleAction = (item) => {
+    setTask(item);
+    if (step === STEPS.TASK) {
+      return setTask(item);
+    }
+  };
   const handleSubmit = () => {
     onClose();
   };
-
-  const bodyContent = (
+  useEffect(() => {
+    console.log("task :>> ", task);
+    console.log("location :>> ", location);
+  }, [task, location]);
+  let bodyContent = (
     <div className="flex flex-col gap-8 ">
       <h1>Which tasks you want to have done ?</h1>
       <div className="grid grid-cols-2 gap-3  overflow-y-hidden">
         {tasks.map((item) => (
           <div key={item.label} className="col-span-1">
             <ListInput
-              onClick={() => {}}
-              selected={false}
+              onClick={handleAction}
+              selected={task === item.label}
               label={item.label}
               icon={item.icon}
             />
@@ -65,6 +75,19 @@ const ListModal: React.FC<ListModalProps> = ({ open, onClose }) => {
       </div>
     </div>
   );
+  if (step === STEPS.LOCATION) {
+    bodyContent = (
+      <div>
+        <h1>Where is your location?</h1>
+        <input
+          onChange={(e) => setLocation(e.target.value)}
+          type="text"
+          placeholder="Adress"
+          className="bg-zinc-100 rounded-lg"
+        />
+      </div>
+    );
+  }
   return (
     <Modal
       title="Create your own listing"
@@ -73,7 +96,7 @@ const ListModal: React.FC<ListModalProps> = ({ open, onClose }) => {
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step === STEPS.TASK ? undefined : onBack}
-      action={handleAction}
+      action={onNext}
       error={error}
       body={bodyContent}
     ></Modal>
