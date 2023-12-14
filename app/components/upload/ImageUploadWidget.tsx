@@ -30,6 +30,12 @@ const ImageUploadWidget: React.FC<ImageUploadProps> = ({ onChange, value }) => {
       uploadPreset="ghreivpa"
       options={{
         maxFiles: 1,
+        sources: ["local"],
+        folder: "ugh5/avatar",
+        clientAllowedFormats: ["webp", "jpg", "jpeg", "png"],
+        maxFileSize: 10000000, /// ca 10 mB
+        maxImageWidth: 500,
+        maxImageHeight: 500,
       }}
     >
       {({ open }) => {
@@ -63,7 +69,7 @@ const ImageUploadWidget: React.FC<ImageUploadProps> = ({ onChange, value }) => {
                   fill
                   style={{ objectFit: "cover" }}
                   src={value}
-                  alt="House"
+                  alt="Picture"
                 />
               </div>
             )}
