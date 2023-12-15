@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import Tasks, { tasks } from "../navBar/Tasks";
 import ListInput from "./ListInput";
+import ImageUploadWidget from "../upload/ImageUploadWidget";
 
 interface ListModalProps {
   open: boolean;
@@ -26,6 +27,7 @@ const ListModal: React.FC<ListModalProps> = ({ open, onClose }) => {
   const [location, setLocation] = useState("");
   const [info, setInfo] = useState("");
   const [title, setTitle] = useState("");
+  const [images, setImages] = useState<[string]>([""]);
 
   const onBack = () => {
     setStep((value) => value - 1);
@@ -104,7 +106,7 @@ const ListModal: React.FC<ListModalProps> = ({ open, onClose }) => {
   //   maxGuests: number;
   if (step === STEPS.INFO) {
     bodyContent = (
-      <div className="your-modal-class" id="container">
+      <div>
         {/* Modal content */}
         {/* </div>
       <div> */}
@@ -121,6 +123,16 @@ const ListModal: React.FC<ListModalProps> = ({ open, onClose }) => {
           placeholder="Info"
           className="bg-zinc-100 rounded-lg py-5 mt-2 w-full"
         />
+      </div>
+    );
+  }
+  if (step === STEPS.IMAGES) {
+    bodyContent = (
+      <div>
+        {/* Modal content */}
+        {/* </div>
+        <div> */}
+        <h1>Upload some images for your listing</h1>
       </div>
     );
   }

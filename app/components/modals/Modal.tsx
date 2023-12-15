@@ -81,24 +81,33 @@ const Modal: React.FC<ModalProps> = ({
             <div className="flex flex-col px-2 pt-2 text-black">
               {body}
 
-              <div className="w-full flex flex-row justify-between  ">
-                {secondaryActionLabel && (
+              <div className="w-full  ">
+                {secondaryActionLabel ? (
+                  <div className="flex flex-row justify-between ">
+                    <button
+                      type="button"
+                      className="rounded w-2/4 bg-blue-500 text-white mt-2 "
+                      onClick={secondaryAction}
+                    >
+                      {secondaryActionLabel}
+                    </button>
+                    <button
+                      type="submit"
+                      className="ml-2 rounded w-2/4 bg-blue-500 text-white mt-2"
+                      onClick={action}
+                    >
+                      {actionLabel}
+                    </button>
+                  </div>
+                ) : (
                   <button
-                    type="button"
-                    className="rounded w-2/4 bg-blue-500 text-white mt-2 "
-                    onClick={secondaryAction}
+                    type="submit"
+                    className="ml-2 rounded w-full bg-blue-500 text-white mt-2"
+                    onClick={action}
                   >
-                    {secondaryActionLabel}
+                    {actionLabel}
                   </button>
                 )}
-
-                <button
-                  type="submit"
-                  className="ml-2 rounded w-2/4 bg-blue-500 text-white mt-2"
-                  onClick={action}
-                >
-                  {actionLabel}
-                </button>
               </div>
               {error && (
                 <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-lg mt-2">
