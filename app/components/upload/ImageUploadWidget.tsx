@@ -10,8 +10,13 @@ declare global {
 interface ImageUploadProps {
   onChange: (value: string) => void;
   value: string;
+  fileCount: number;
 }
-const ImageUploadWidget: React.FC<ImageUploadProps> = ({ onChange, value }) => {
+const ImageUploadWidget: React.FC<ImageUploadProps> = ({
+  onChange,
+  value,
+  fileCount,
+}) => {
   const handleSubmit = useCallback(
     (result: any) => {
       try {
@@ -29,7 +34,7 @@ const ImageUploadWidget: React.FC<ImageUploadProps> = ({ onChange, value }) => {
       onUpload={handleSubmit}
       uploadPreset="ghreivpa"
       options={{
-        maxFiles: 1,
+        maxFiles: fileCount,
         sources: ["local"],
         folder: "ugh5/avatar",
         clientAllowedFormats: ["webp", "jpg", "jpeg", "png"],
@@ -67,7 +72,7 @@ const ImageUploadWidget: React.FC<ImageUploadProps> = ({ onChange, value }) => {
               >
                 <Image
                   fill
-                  style={{ objectFit: "cover" }}
+                  style={{ objectFit: "scale-down" }}
                   src={value}
                   alt="Picture"
                 />

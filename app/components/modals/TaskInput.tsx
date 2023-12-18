@@ -1,13 +1,13 @@
 "use client";
 import { IconType } from "react-icons";
 
-interface ListInputProps {
+interface TaskInputProps {
   icon: IconType;
   label: string;
   selected?: boolean;
   onClick: (value: string) => void;
 }
-const ListInput: React.FC<ListInputProps> = ({
+const TaskInput: React.FC<TaskInputProps> = ({
   icon: Icon,
   label,
   selected,
@@ -29,9 +29,9 @@ const ListInput: React.FC<ListInputProps> = ({
   ${selected ? "border-black" : "border-neutral-200"}`}
     >
       <Icon size={30} />
-      <div className="font-semibold">{label}</div>
+      <div className="font-semibold">{label} </div>
     </div>
   );
 };
 
-export default ListInput;
+export default TaskInput;

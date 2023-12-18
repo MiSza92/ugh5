@@ -3,7 +3,7 @@ import User from "@/app/schemas/user";
 
 import { NextResponse } from "next/server";
 
-export async function GET(request) {
+export async function GET(request: Request) {
   try {
     await connectMongo();
 

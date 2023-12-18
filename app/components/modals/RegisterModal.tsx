@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
-import { useRouter } from "next/navigation";
+
 import ImageUploadWidget from "../upload/ImageUploadWidget";
 
 interface RegisterModalProps {
@@ -9,7 +9,7 @@ interface RegisterModalProps {
 }
 
 const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
-  const [image, setImage] = useState("");
+  const [image, setimage] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,8 +20,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
       setError("all Fields must be applied");
     }
     try {
-      console.log("image :>> ", image);
       if (image !== "") {
+        console.log("image :>> ", image);
         const formdata = new FormData();
         formdata.append("email", email);
         formdata.append("name", name);
@@ -75,8 +75,9 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
       />
       <ImageUploadWidget
         value={image}
+        fileCount={1}
         onChange={async (url) => {
-          await setImage(url);
+          await setimage(url);
         }}
       />
     </form>
