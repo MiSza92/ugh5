@@ -9,6 +9,7 @@ type Listing = {
   images: string[];
   minGuests: number;
   maxGuests: number;
+  user: mongoose.Schema.Types.ObjectId;
 };
 
 const listingsSchema = new Schema<Listing>(
@@ -22,6 +23,10 @@ const listingsSchema = new Schema<Listing>(
     //   images: [{ type: String, required: true }],
     minGuests: { type: Number, required: true },
     maxGuests: { type: Number, required: true },
+    //  user: { type: String, required: true },
+    // user: { type: String, required: true, ref: "User" },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+    // user: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
   },
   { timestamps: true }
 );

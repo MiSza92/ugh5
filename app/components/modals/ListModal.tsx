@@ -4,6 +4,9 @@ import Modal from "./Modal";
 import { tasks } from "../navBar/Tasks";
 import ImageUploadWidget from "../upload/ImageUploadWidget";
 import TaskInput from "./TaskInput";
+import { useSession } from "next-auth/react";
+import User from "@/app/schemas/user";
+import mongoose from "mongoose";
 
 interface ListModalProps {
   open: boolean;
@@ -22,37 +25,49 @@ const ListModal: React.FC<ListModalProps> = ({ open, onClose }) => {
   const [error, setError] = useState("");
 
   const [title, setTitle] = useState("");
-  // const [description, setDescription] = useState<string>("");
   const [task, setTask] = useState<string>("");
   const [location, setLocation] = useState("");
   const [info, setInfo] = useState("");
   const [images, setImages] = useState<string[]>([]);
   const [minGuests, setMinGuests] = useState(1);
   const [maxGuests, setMaxGuests] = useState(1);
+  const [iD, setID] = useState(null);
+
+  const [serverData, setServerData] = useState<User | null>(null);
+  const getServerData = async (email) => {
+    try {
+      const res = await fetch(`api/users?email=${encodeURIComponent(email)}`, {
+        method: "GET",
+      });
+
+      if (res.ok) {
+        const { user } = await res.json();
+
+        await setServerData(user);
+      }
+    } catch (error) {
+      console.log("error :>> ", error);
+    }
+  };
 
   const handleSubmit = async () => {
+    console.log("serverData :>> submit", serverData);
+    // setEmail(useremail);
     if (!title || !task || !location || !info || !images) {
       setError("all Fields must be applied");
     } else {
       try {
-        console.log("image :>> ", images);
-
         const formdata = new FormData();
         formdata.append("title", title);
         formdata.append("tasks", task);
         formdata.append("location", location);
         formdata.append("info", info);
-        // formdata.append("description", description);
-        // formdata.append("images", images);
-        // for (var i = 0; i < images.length; i++) {
-        //   formdata.append("images[]", images[i]);
-        // }
-        // images.forEach((image, index) => {
-        //   formdata.append(`images[${index}]`, image);
-        // });
+        formdata.append("user", iD?.toString()); // Umwandlung zu Zeichenkette
+
         images.forEach((image, index) => {
           formdata.append("images", image);
         });
+
         formdata.append("minGuests", minGuests);
         formdata.append("maxGuests", maxGuests);
         console.log("formdata :>> ", formdata);
@@ -62,8 +77,9 @@ const ListModal: React.FC<ListModalProps> = ({ open, onClose }) => {
         });
 
         if (res.ok) {
+          const { message } = await res.json();
           console.log("res :>> ", res);
-          alert("Listing created successful");
+          alert(message);
           onClose();
         } else {
           console.log("Listing creation failed :>> ");
@@ -106,17 +122,30 @@ const ListModal: React.FC<ListModalProps> = ({ open, onClose }) => {
     // }
   };
 
-  // const handleSubmit = () => {
-  //   onClose();
-  // };
-
   useEffect(() => {
-    console.log("task :>> ", task);
-    console.log("location :>> ", location);
-    console.log("info :>> ", info);
-    console.log("title :>> ", title);
-    console.log("images :>> ", images);
-  }, [onNext]);
+    if (serverData) {
+      const { _id: id } = serverData;
+      console.log("ID aus serverData:", id);
+      setID(id);
+    }
+  }, [serverData]);
+
+  const { data } = useSession();
+  useEffect(() => {
+    const email = data?.user?.email as string;
+    console.log("email :>> ", email);
+    //  setEmail(userEmail);
+
+    const fetchData = async () => {
+      if (email) {
+        const bla = await getServerData(email);
+        console.log("bla :>> ", bla);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   let bodyContent = (
     <div className="flex flex-col gap-8 ">
       <h1>Which tasks you want to have done ?</h1>

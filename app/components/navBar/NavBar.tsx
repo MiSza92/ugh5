@@ -28,7 +28,7 @@ const NavBar = () => {
           </div>
         </Container>
       </div>
-      <Tasks />
+      {/* <Tasks /> */}
     </div>
   );
 };
