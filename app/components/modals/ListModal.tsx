@@ -31,7 +31,7 @@ const ListModal: React.FC<ListModalProps> = ({ open, onClose }) => {
   const [images, setImages] = useState<string[]>([]);
   const [minGuests, setMinGuests] = useState(1);
   const [maxGuests, setMaxGuests] = useState(1);
-  const [iD, setID] = useState(null);
+  const [iD, setID] = useState("");
 
   const [serverData, setServerData] = useState<User | null>(null);
   const getServerData = async (email) => {
@@ -53,7 +53,7 @@ const ListModal: React.FC<ListModalProps> = ({ open, onClose }) => {
   const handleSubmit = async () => {
     console.log("serverData :>> submit", serverData);
     // setEmail(useremail);
-    if (!title || !task || !location || !info || !images) {
+    if (!title || !task || !location || !info || !images || !iD) {
       setError("all Fields must be applied");
     } else {
       try {
@@ -62,7 +62,7 @@ const ListModal: React.FC<ListModalProps> = ({ open, onClose }) => {
         formdata.append("tasks", task);
         formdata.append("location", location);
         formdata.append("info", info);
-        formdata.append("user", iD?.toString()); // Umwandlung zu Zeichenkette
+        formdata.append("user", iD);
 
         images.forEach((image, index) => {
           formdata.append("images", image);
@@ -154,7 +154,7 @@ const ListModal: React.FC<ListModalProps> = ({ open, onClose }) => {
           <div key={item.label} className="col-span-1">
             <TaskInput
               onClick={handleAction}
-              selected={task?.label === item.label}
+              selected={task === item.label}
               // selected={task === item.label}
               label={item.label}
               icon={item.icon}

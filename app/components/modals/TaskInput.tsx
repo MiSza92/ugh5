@@ -23,10 +23,12 @@ const TaskInput: React.FC<TaskInputProps> = ({
   flex
   flex-col
   gap-3
-  hover:border-black
+   hover:border-black
   transition
   cursor-pointer
-  ${selected ? "border-black" : "border-neutral-200"}`}
+   ${selected ? "border-black" : "border-neutral-200"}
+  ${selected ? "border-b-neutral-800" : "border-b-neutral-400"}
+`}
     >
       <Icon size={30} />
       <div className="font-semibold">{label} </div>
