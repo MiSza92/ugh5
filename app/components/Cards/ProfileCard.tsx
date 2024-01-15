@@ -2,7 +2,7 @@
 import { getServerSession } from "next-auth";
 import { SessionContext, signOut } from "next-auth/react";
 import React, { useEffect, useState } from "react";
-import User from "../schemas/user";
+import User from "../../schemas/user";
 
 interface ProfileCardProps {
   data: {

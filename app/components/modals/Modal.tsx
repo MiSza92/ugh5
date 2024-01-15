@@ -67,7 +67,7 @@ const Modal: React.FC<ModalProps> = ({
       {isOpen && (
         <div
           id="container"
-          className="fixed inset-0 flex justify-center items-center backdrop-blur-sm bg-black/20 "
+          className="fixed inset-0 flex justify-center items-center backdrop-blur-sm bg-black/20 z-10 "
           onClick={handleOnClose}
         >
           <div className="shadow-lg p- rounded-lg border-t-4 border-blue-500 bg-white w-1/3 px-2 py-2">

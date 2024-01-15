@@ -22,7 +22,8 @@ export default function Home() {
       <button
         className="border border-neutral-300 rounded-lg py-1.5 px-10 my-2  bg-blue-500 hover:bg-blue-600 text-white"
         onClick={() => {
-          setLoginIsOpen(true);
+          // setLoginIsOpen(true);
+          setLoginIsOpen(!loginIsOpen);
         }}
       >
         Login

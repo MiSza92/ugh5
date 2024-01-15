@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import ProfileCard from "../components/ProfileCard";
+import ProfileCard from "../components/Cards/ProfileCard";
 
 export default function Profile() {
   const { data } = useSession();

@@ -32,7 +32,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <SessionProvider session={session}>
           <NavBar />
-          {children}
+          <div>{children}</div>{" "}
         </SessionProvider>
       </body>
     </html>

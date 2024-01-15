@@ -65,7 +65,7 @@ const UserMenu = () => {
           transition 
           cursor-pointer"
         >
-          Offer your home
+          Offer your task
           {listIsOpen && <ListModal open={listIsOpen} onClose={toggleList} />}
         </div>
         <div
